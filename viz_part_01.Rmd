@@ -94,6 +94,48 @@ weather_df %>%
   facet_grid(. ~ name)
 ```
 
+# Univariate plots
+### Histograms, barplots, boxplots, violins
+* Histograms
+```{r Histograms}
+weather_df %>% 
+  ggplot(aes(x = tmax,fill=name)) + 
+  geom_histogram()+
+  facet_grid(.~name)
+```
+
+```{r Density plot}
+weather_df %>% 
+  ggplot(aes(x = tmax,fill=name)) + 
+  geom_density(alpha=.3)
+```
+```{r boxplots}
+weather_df %>% 
+  ggplot(aes(x=name,y = tmax,fill=name)) + 
+  geom_violin()
+```
+```{r ridgeplot}
+weather_df %>% 
+  ggplot(aes(x = tmax,y=name)) + 
+  geom_density_ridges()
+```
+
+### Saving and embedding plots
+```{r}
+weather_scatterplot=
+  weather_df %>% 
+  ggplot(aes(x=date,y=tmax,color=name,size=prcp))+
+  geom_point(aes(size=prcp),alpha=.3)+
+  geom_smooth(se=FALSE)+
+  facet_grid(.~name)
+weather_scatterplot
+ggsave("results/weather_scatterplot.pdf",weather_scatterplot,
+       width = 8,height = 5)
+```
+
+
+
+
 
 
 

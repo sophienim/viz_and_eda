@@ -147,3 +147,54 @@ weather_df %>%
     ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 
 ![](viz_part_01_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+# Univariate plots
+
+### Histograms, barplots, boxplots, violins
+
+-   Histograms
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmax,fill=name)) + 
+  geom_histogram()+
+  facet_grid(.~name)
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_bin).
+
+![](viz_part_01_files/figure-gfm/Histograms-1.png)<!-- -->
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmax,fill=name)) + 
+  geom_density(alpha=.3)
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_density).
+
+![](viz_part_01_files/figure-gfm/Density%20plot-1.png)<!-- -->
+
+``` r
+weather_df %>% 
+  ggplot(aes(x=name,y = tmax,fill=name)) + 
+  geom_violin()
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_ydensity).
+
+![](viz_part_01_files/figure-gfm/boxplots-1.png)<!-- -->
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmax,y=name)) + 
+  geom_density_ridges()
+```
+
+    ## Picking joint bandwidth of 1.84
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_density_ridges).
+
+![](viz_part_01_files/figure-gfm/ridgeplot-1.png)<!-- -->
