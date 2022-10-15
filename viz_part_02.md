@@ -87,6 +87,7 @@ weather_df %>%
 ![](viz_part_02_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
+ggp_temp_plot=
 weather_df %>% 
   ggplot(aes(x = tmin, y = tmax,color=name))+
   geom_point(alpha=.5)+
@@ -101,6 +102,14 @@ weather_df %>%
   )
 ```
 
+### Themes
+
+``` r
+ggp_temp_plot + 
+  theme_bw() + 
+  theme(legend.position = "bottom")
+```
+
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
-![](viz_part_02_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](viz_part_02_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->

@@ -61,6 +61,7 @@ weather_df %>%
   scale_color_hue(name="location",h=c(100,300))
 ```
 ```{r}
+ggp_temp_plot=
 weather_df %>% 
   ggplot(aes(x = tmin, y = tmax,color=name))+
   geom_point(alpha=.5)+
@@ -74,5 +75,13 @@ weather_df %>%
     discrete = TRUE
   )
 ```
+
+### Themes
+```{r}
+ggp_temp_plot + 
+  theme_bw() + 
+  theme(legend.position = "bottom")
+```
+
 
 
