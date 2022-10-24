@@ -86,6 +86,44 @@ weather_df %>%
   filter(name != "Waikiki_HA") %>% 
   janitor::tabyl(name, cold)
 ```
+# General summaries
+```{r}
+weather_df %>%
+  group_by(name,month) %>%
+  summarize(
+    n_obs=n(),
+    mean_tmax = mean(tmax),
+    mean_prec = mean(prcp, na.rm = TRUE),
+    median_tmax = median(tmax),
+    sd_tmax = sd(tmax))
+```
+
+```{r}
+weather_df %>%
+  group_by(name, month) %>%
+  summarize(across(tmin:prcp, mean))
+```
+
+# This is a dataframe
+```{r}
+weather_df %>%
+  group_by(name, month) %>%
+  summarize(mean_tmax = mean(tmax)) %>%
+  ggplot(aes(x = month, y = mean_tmax, color = name)) + 
+    geom_point() + geom_line() + 
+    theme(legend.position = "bottom")
+```
+
+```{r}
+weather_df %>%
+  group_by(name, month) %>%
+  summarize(mean_tmax = mean(tmax)) %>% 
+  pivot_wider(
+    names_from = name,
+    values_from = mean_tmax) %>% 
+  knitr::kable(digits = 1)
+```
+
 
 
 
