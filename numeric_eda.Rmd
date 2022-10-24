@@ -30,6 +30,65 @@ weather_df =
     month = lubridate::floor_date(date, unit = "month")) %>%
   select(name, id, everything())
 ```
-# 
+# `group_by()`
 
 ```{r}
+weather_df %>%
+  group_by(name, month)
+```
+#  `symmarize()`
+* Lets group and then summarize
+```{r}
+weather_df %>%
+  group_by(name,month) %>%
+  summarize(n_obs = n())
+```
+
+* can we count in other ways
+```{r}
+weather_df %>%
+  count(name,month, name = "n_obs")
+```
+* dobt use `table()`
+
+# Have multiply summaries
+```{r}
+weather_df %>%
+  group_by(month) %>%
+  summarize(
+    n_obs = n(),
+    n_days = n_distinct(date))
+```
+# a brief aside on 2X2 table
+```{r}
+weather_df %>% 
+  mutate(
+    cold = case_when(
+      tmax <  5 ~ "cold",
+      tmax >= 5 ~ "not_cold",
+      TRUE      ~ ""
+  )) %>% 
+  filter(name != "Waikiki_HA") %>% 
+  group_by(name, cold) %>% 
+  summarize(n_obs = n()) %>% 
+  pivot_wider(
+    names_from = cold,
+    values_from = n_obs
+  )
+```
+```{r}
+weather_df %>% 
+  mutate(cold = case_when(
+    tmax <  5 ~ "cold",
+    tmax >= 5 ~ "not_cold",
+    TRUE     ~ ""
+  )) %>% 
+  filter(name != "Waikiki_HA") %>% 
+  janitor::tabyl(name, cold)
+```
+
+
+
+
+
+
